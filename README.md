@@ -1,2 +1,2 @@
-# YourShop
-A mini e-commerce website
+## YourShop
+A mini e-commerce django project
