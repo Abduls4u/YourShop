@@ -1,0 +1,13 @@
+{% extends 'products/layout.html' %}
+
+{% block title %}register{% endblock %}
+{% block content %}
+    <h1>User Registration</h1>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account?, <a href="{% url 'login' %}">Login</a></p>
+{% endblock content%}

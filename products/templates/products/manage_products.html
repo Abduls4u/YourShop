@@ -1,0 +1,33 @@
+{% extends 'products/layout.html' %}
+
+{% block title %}manage_products{% endblock %}
+{% block content %}
+    <h1>Hello, {{ user_name }}. with the id {{user_id}}</h1>
+    <hr>
+    <hr>
+    <h2>These are your current products</h2>
+    <ul>
+        {% for product in user_products %}
+            <li>
+                {{product.name}} *** {{product.description}}
+            </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <hr>
+    <h2>Add new products</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Product</button>
+    </form>
+
+
+    Do you want to <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+
+    <form id="logout-form" method="post" action="{% url 'logout' %}">
+
+            {% csrf_token %}
+            <!-- You can add additional hidden fields if needed -->
+    </form>
+{% endblock %}
