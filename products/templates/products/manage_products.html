@@ -1,33 +1,68 @@
 {% extends 'products/layout.html' %}
+{% load crispy_forms_tags %}
 
-{% block title %}manage_products{% endblock %}
+{% block title %}Manage products{% endblock %}
 {% block content %}
-    <h1>Hello, {{ user_name }}. with the id {{user_id}}</h1>
-    <hr>
-    <hr>
-    <h2>These are your current products</h2>
-    <ul>
-        {% for product in user_products %}
-            <li>
-                {{product.name}} *** {{product.description}}
-            </li>
-        {% endfor %}
-    </ul>
-    <hr>
-    <hr>
-    <h2>Add new products</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Product</button>
-    </form>
+    <div class="container-md">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <h1>
+                    <strong>Manage Products</strong>
+                </h1>
+            </div>
+        </div>
+        <div class="my-3 ">
+            <h3><strong>Add Products</strong></h3>
+        </div>
+        <form method="post" enctype="multipart/form-data" class="form-horizontal" id="addProductForm">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" name="action" value="add_product" class="btn btn-success" id="submitAddProduct">Save product</button>
+        </form>
+        <div class="m-2">
+            <p>Your storefront link is: <strong>{{ storeLink }}</strong>
+            <a href="{% url 'storefront' user.id %}" style="float: right;">Go to your storefront</a></p>
+        </div>        
+        <div class="m-5 text-center">
+            <h2><strong>Your Products</strong></h2>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>
+                        <form method="post" action="{% url 'manage_products' %}" class="deleteProductForm">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete_product_id" value="{{ product.id }}">
+                            <button type="submit" name="action" value="delete_product" class="btn btn-danger deleteProductButton">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
+    <script>
+        // Disable form submission for the "Add Products" form when deleting a product
+        document.querySelectorAll('.deleteProductButton').forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Ask for confirmation
+                var confirmation = confirm('Are you sure you want to delete this product?');
+                if (confirmation) {
+                    // Find the associated form and submit it
+                    var form = button.closest('.deleteProductForm');
+                    form.submit();
+                }
+            });
+        });
 
-    Do you want to <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-
-    <form id="logout-form" method="post" action="{% url 'logout' %}">
-
-            {% csrf_token %}
-            <!-- You can add additional hidden fields if needed -->
-    </form>
+    </script>
 {% endblock %}
