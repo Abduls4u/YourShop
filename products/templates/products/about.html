@@ -1,0 +1,78 @@
+{% extends 'products/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}About YourShop{% endblock %}
+
+
+{% block content %}
+<div class="container-md mt-5">
+    <div class="jumbotron bg-light text-dark">
+        <h1 class="display-4">Welcome to YourShop</h1>
+        <p class="lead">
+            &emsp; YourShop is a web stack portfolio and my final project in the ALX Software Engineering program.
+            It serves as an online platform that empowers users to showcase their products easily.
+        </p>
+        <hr class="my-4">
+        <p>
+            &emsp; If you are a seller, you can easily upload your products and share your shop link with customers.
+            Customers can view your available products, complete with prices, images, and descriptions.
+        </p>
+        <p class="lead">
+            Get started today by registering and uploading your first product!
+        </p>
+        <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Get Started</a>
+    </div>
+    <div class="row mt-4 ">
+        <div class="col-md-6">
+            <h2 class="mb-4">Why Choose YourShop?</h2>
+            <ul class="list-group mb-4">
+                <li class="list-group-item bg-light">
+                    <i class="fas fa-check-circle text-success mr-2"></i>Showcase your products to a wide audience.
+                </li>
+                <li class="list-group-item bg-light">
+                    <i class="fas fa-check-circle text-success mr-2"></i>Connect with customers by sharing your unique shop link.
+                </li>
+                <li class="list-group-item bg-light">
+                    <i class="fas fa-check-circle text-success mr-2"></i>Easy product upload with images, prices, and descriptions.
+                </li>
+                <li class="list-group-item bg-light">
+                    <i class="fas fa-check-circle text-success mr-2"></i>User-friendly interface for a seamless experience.
+                </li>
+                <li class="list-group-item bg-light">
+                    <i class="fas fa-check-circle text-success mr-2"></i>Its my final project in the ALX Software Engineering program :)
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h2 class="mb-2 ">ALX Software Engineering Program</h2>
+            <p>
+                &emsp; YourShop is the culmination of skills I learned in the ALX Software Engineering program.
+                ALX provides a comprehensive curriculum covering web development, software engineering and its best practices,
+                and real-world projects to prepare students for success in the software industry.
+            </p>
+            <p>
+                &emsp; This project showcases my ability to design and implement a full-stack web application.
+                It includes features such as user authentication, database integration, and a user-friendly interface.
+            </p>
+        </div>
+        {% if user.is_authenticated %}
+                <a href="{% url "manage_products" %}">Go back to manage your products</a>
+        {% endif %}
+
+    <!-- Contact Developer Section -->
+    <div class="row mt-5 mb-5">
+        <div class="col-md-12 text-center">
+            <h2>Contact Developer</h2>
+            <p class="lead">Have questions or feedback? Feel free to reach out!</p>
+            <div>
+                <a href="https://x.com/abduls0mad" class="btn btn-outline-info btn-lg" target="_blank" rel="noopener">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                <a href="https://github.com/abduls4u" class="btn btn-outline-dark btn-lg" target="_blank" rel="noopener">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
