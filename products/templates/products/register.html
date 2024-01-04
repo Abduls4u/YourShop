@@ -1,13 +1,27 @@
 {% extends 'products/layout.html' %}
+{% load crispy_forms_tags %}
 
-{% block title %}register{% endblock %}
+{% block title %}Sign Up{% endblock %}
 {% block content %}
-    <h1>User Registration</h1>
-    <form method="post" action="{% url 'register' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-
-    <p>Already have an account?, <a href="{% url 'login' %}">Login</a></p>
+    <div class="container">
+        <div class="row justify-content-around ">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Register to be a user
+                            <span style="float:right">Already a user?<a href="{% url 'login' %}" class="text-primary">Login</a></span>
+                        </h5>
+                        <div class="card-text" >
+                            <form method="post" action="{% url 'register' %}">
+                                {% csrf_token %}
+                                {{ form | crispy }}
+                                <button type="submit" class="btn btn-primary btn-md mx-auto " style="float:center;">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content%}
